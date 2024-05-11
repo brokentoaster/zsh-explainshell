@@ -18,7 +18,7 @@ Plugins[explainshell_man_cmd]="man"
 #   $@ is Command line to convert to URL.
 # Outputs:
 #   prints URL to stdout
-cmd_to_URL(){
+cmd_to_URL() {
     # replace spaces with '+'
     local query=${@:gs/ /\+}
 
@@ -33,10 +33,8 @@ cmd_to_URL(){
 #   $1 URL to fetch and format
 # Outputs:
 #   prints reformatted webpage sections to stdout
-get_explainshell_as_text(){
-    # get the answer using lynx and remove the header
-    lynx "$1" -dump -nolist -width=120 \
-            | sed '1,8d'
+get_url_as_text() {
+    lynx "$1" -dump -nolist -width=120 | sed '1,8d'
 }
 
 
@@ -49,7 +47,7 @@ get_explainshell_as_text(){
 explainshell_cmd() {
     local url=$(cmd_to_URL ${BUFFER})
     printf "\nGetting '${url}'...\n" 
-    get_explainshell_as_text "${url}"
+    get_url_as_text "${url}"
     printf  "\n>> ${BUFFER} <<\n"
     printf "\nPress Enter to execute or <CTRL-C> to abort"
 }
@@ -62,21 +60,21 @@ explainshell_cmd() {
 # Outputs:
 #   prints to stdout in a tmux split
 explainshell_cmd_window() {
-    temp_file=$(mktemp)
+    local temp_file=$(mktemp)
+    local url=$(cmd_to_URL ${BUFFER})
 
-    local url=$(cmd_to_URL $BUFFER)
-    get_explainshell_as_text "${url}" > ${temp_file}
+    get_url_as_text "${url}" > "${temp_file}"
     tmux splitw "cat ${temp_file} | less"
     #dialog --textbox $temp_file 0 0 
     
-    [ -f ${temp_file} ] && rm ${temp_file}
+    [ -f "${temp_file}" ] && rm "${temp_file}"
 }
 
 # Open the explanation in system web browser.
 # Globals:
 #   $BUFFER contains the current command line.
 explainshell_cmd_browser(){
-    local url=$(cmd_to_URL $BUFFER)
+    local url=$(cmd_to_URL ${BUFFER})
     $Plugins[explainshell_browser_cmd] "${url}"
 }
 
