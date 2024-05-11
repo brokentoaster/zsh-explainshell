@@ -18,10 +18,10 @@ Plugins[explainshell_man]="nice_man"
 cmd_to_URL(){
     # current line is normally in BUFFER
     # replace spaces with '+'
-    Plugins[explainshell_query]=${BUFFER:gs/ /\+}
+    Plugins[explainshell_QUERY]=${BUFFER:gs/ /\+}
 
     # add base URL
-    Plugins[explainshell_url]="https://explainshell.com/explain?cmd=${Plugins[explainshell_query]}"
+    Plugins[explainshell_url]="https://explainshell.com/explain?cmd=${Plugins[explainshell_QUERY]}"
 }
 
 
@@ -51,7 +51,7 @@ explainshell_cmd_window() {
     temp_file=$(mktemp)
     get_explainshell_as_text > $temp_file
     tmux splitw "cat $temp_file | less"
-    [ -f $temp_file ] && rm temp_file
+    [ -f $temp_file ] && rm $temp_file
 }
 
 # open the explanation in system web browser 
