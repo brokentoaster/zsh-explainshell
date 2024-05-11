@@ -10,8 +10,8 @@ typeset -gA Plugins
 # set the browser command here eg firefox, chrome or xdg-open
 Plugins[explainshell_browser]="xdg-open"
 
-# set you man tool here. Normally 'man' but I use 
-Plugins[explainshell_man]="nice_man"
+# set you man tool here.
+Plugins[explainshell_man]="man"
 
 
 #convert the current command line to a URL for explainshell.com
@@ -51,6 +51,7 @@ explainshell_cmd_window() {
     temp_file=$(mktemp)
     get_explainshell_as_text > $temp_file
     tmux splitw "cat $temp_file | less"
+    #dialog --textbox $temp_file 0 0 
     [ -f $temp_file ] && rm $temp_file
 }
 
