@@ -3,7 +3,7 @@ A Zsh plugin to look up the current cmd line on [explainshell.com](explain.com).
 Uses [lynx](https://lynx.browser.org/) to extract a plain text version of website response.
 
 ## Example
-[![asciicast](https://asciinema.org/a/UjFnhtKsucclo2uLe4URV0FRG.svg)](https://asciinema.org/a/UjFnhtKsucclo2uLe4URV0FRG)
+[![asciicast](https://asciinema.org/a/BpbD8MZ99PWCE8nQvClUzURXa.svg)](https://asciinema.org/a/BpbD8MZ99PWCE8nQvClUzURXa)
 
 ## Current key bindings are as follows
 
